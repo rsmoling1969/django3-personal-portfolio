@@ -1,0 +1,38 @@
+.navbar-nav .nav-link {
+    color: rgba(0,0,0,1) !important;
+}
+
+.navbar-nav .nav-link:hover {
+    color: rgba(0,0,0,.5) !important;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    background-color: #009900;
+    color: white;
+}
+
+#blogtitle {
+    font-size: 6rem;
+}
+
+@media (min-width: 992px) {
+    #hometext {
+        font-size: 4rem;
+    }
+    #blogdetailtitle {
+        font-size: 5rem;
+    }
+}
+
+h2 {
+    color: #AAA9FF;
+}
+
+h5 {
+    color: #CC33CC;
+}
+
+.project-img {
+    height: 200px;
+    width: 200px;
