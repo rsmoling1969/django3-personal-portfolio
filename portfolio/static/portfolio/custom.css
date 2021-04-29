@@ -8,6 +8,8 @@
 
 body {
     font-family: 'Lato', sans-serif;
+    background-color: #009900;
+    color: white;
 }
 
 #blogtitle {
@@ -23,7 +25,14 @@ body {
     }
 }
 
+h2 {
+    color: #BAA9FF;
+}
+
+h5 {
+    color: #FFAAFF;
+}
+
 .project-img {
     height: 200px;
     width: 200px;
-}

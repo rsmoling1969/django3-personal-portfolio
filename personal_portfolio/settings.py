@@ -25,7 +25,7 @@ SECRET_KEY = 'g5$=+g2w9+i49lp+w+f#4kxaruq6m7k+f3@&9fc_nv^ihy^8+2'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['rsmoling.pythonanywhere.com']
+
 
 
 # Application definition
@@ -52,6 +52,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'personal_portfolio.urls'
+
+ALLOWED_HOSTS = ['rsmoling.pythonanywhere.com']
 
 TEMPLATES = [
     {
@@ -124,3 +126,8 @@ STATIC_ROOT = BASE_DIR / 'static'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+try:
+    from .local_settings import *
+except ImportError:
+    print("No local settings file, you must be in prod!")
