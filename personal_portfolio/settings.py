@@ -53,7 +53,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'personal_portfolio.urls'
 
-ALLOWED_HOSTS = ['rsmoling.pythonanywhere.com']
+ALLOWED_HOSTS = ['www.russmoling.com']
 
 TEMPLATES = [
     {
