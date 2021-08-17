@@ -1,0 +1,15 @@
+{% extends "CoblentzNumbers/coblentz_base.html" %}
+
+{% block content %}
+<h1>Login - Coblentz Dining Hall Cashier</h1>
+{% if error %}
+<div class="alert alert-danger" role="alert">
+    {{ error }}
+</div>
+{% endif %}
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Log In</button>
+</form>
+{% endblock %}

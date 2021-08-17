@@ -1,0 +1,29 @@
+{% extends "CoblentzNumbers/coblentz_base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<h1 id="coblentzshifts" class="font-weight-bold text-center">Coblentz Shift Numbers</h1>
+
+<h3 class="text-center mb-5">{{ user.username }} has worked {{ shifts.count }} shift{{ shifts.count|pluralize }}</h3>
+
+<br>
+<ul>
+{% for shift in shifts %}
+    <li>
+        <a href="{% url 'CoblentzNumbers:shift_detail' shift.id %}">
+            <h2>{{ shift.date }} {{ shift.shift }}</h2>
+        </a>
+    </li>
+
+{% endfor %}
+</ul>
+<br>
+<a href="{% url 'CoblentzNumbers:create_shift' %}">Create a New Shift</a>
+
+
+
+
+
+{% endblock %}

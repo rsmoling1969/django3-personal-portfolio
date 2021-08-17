@@ -1,0 +1,77 @@
+{% extends "CoblentzNumbers/coblentz_base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<h1 class="text-center mt-5" id="shiftdetaildate">{{ shift.date }} {{ shift.shift }}</h1>
+
+<!--<h5 class="text-center text-muted mb-5">{{ shift.date|date:'F jS Y' }}</h5>-->
+<br>
+{% if error %}
+<div class="alert alert-danger" role="alert">
+   {{ error }}
+</div>
+{% endif %}
+{% if success %}
+<div class="alert alert-success" role="alert">
+    {{ success }}
+</div>
+{% endif %}
+<table id="myTable" class="table">
+    <colgroup>
+        <col span="1" style="width: 33%;">
+        <col span="1" style="width: 45%;">
+        <col span="1" style="width: 22%;">
+    </colgroup>
+    <tr>
+        <th style="text-align:left">Time</th>
+        <th style="text-align:left"><div style="padding-left:75px">Count</div></th>
+        <th style="text-align:left">Running Average</th>
+    </tr>
+    {% for key, value in shift.counts_and_averages.items %}
+    <tr>
+        <td>{{ key }}</td>
+        <td><input id="table_{{forloop.counter}}" type="text" value="{{ value.0 }}"></td>
+        <td>{{ value.1 }}</td>
+    </tr>
+    {% endfor %}
+</table>
+<form id="theForm" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="memo"></label>
+        <input type="hidden" name="shift" value = "{{ shift.shift }}" class="form-control" id="shift">
+        <input type="hidden" name="date" value = "{{ shift.date|date:"Y-m-d" }}" class="form-control" id="date">
+        <input type="hidden" name="numbers" value = "2,4,6,8" }}" class="form-control" id="numbers">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+
+</form>
+
+
+<script>
+   window.onload = function() {
+            document.getElementById('theForm').onsubmit = function() {
+            var numbers = document.getElementById('numbers');
+            numbers.value = "1,1,2,3,5";
+            var myOutput = "";
+            var table = document.getElementById("myTable");
+            var rows = table.getElementsByTagName("tr");
+            for (var i = 1; i <= rows.length - 1; i++)
+            {
+                var cellValue = document.getElementById("table_"+i).value;
+                myOutput += cellValue;
+                if (i != rows.length - 1)
+                {
+                    myOutput += ",";
+                }
+            }
+            numbers.value = myOutput;
+            //alert("My output is " + myOutput);
+        }
+   }
+</script>
+
+{% endblock %}

@@ -1,5 +1,5 @@
 from django.urls import path
-from . import views
+from portfolio.static import views
 
 app_name = 'blog'
 

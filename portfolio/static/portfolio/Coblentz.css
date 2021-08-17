@@ -6,12 +6,27 @@
     color: rgba(0,0,0,.5) !important;
 }
 
-body {
-    font-family: 'Lato', sans-serif;
-    background: linear-gradient(#00AA00, #AAAA00);
-    color: white;
+html {
+    height: 100%;
 }
 
+body {
+    font-family: 'Lato', sans-serif;
+    background: linear-gradient(#0000AA, #AAAAAA);
+    color: white;
+    height: 100%;
+    margin: 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+table {
+    background-color: #999999;
+}
+
+th {
+    color: #FFFFFF;
+}
 #blogtitle {
     font-size: 6rem;
 }
@@ -23,6 +38,14 @@ body {
     #blogdetailtitle {
         font-size: 5rem;
     }
+}
+
+.CoblentzHeader {
+    font-size: 40px;
+}
+
+.right-margin {
+    margin-right: 20px;
 }
 
 h2 {

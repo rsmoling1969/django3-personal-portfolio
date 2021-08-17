@@ -1,0 +1,36 @@
+{% extends "CoblentzNumbers/coblentz_base.html" %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-5">
+        <h2 id="coblentzshifts" class="font-weight-bold text-center">Create New Shift</h2>
+    </div>
+</div>
+<div class="row justify-content-center mt-5">
+    <div class="col-md-5">
+        {% if error %}
+        <div class="alert alert-danger" role="alert">
+            {{ error }}
+        </div>
+        {% endif %}
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="date">Select Date</label>
+                <input type="date" name="date" value = "{{ myToday }}" class="form-control" id="date" required>
+            </div>
+            <div class="form-group">
+                <label for="shift">Shift</label>
+                <select name="shift" id="cars">
+                    <option value="AM">AM</option>
+                    <option value="PM">PM</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <!--<input type="hidden" name="numbers" value=" , , , , , , , , , , , , , " id=""numbers required>-->
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

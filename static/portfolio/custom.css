@@ -36,3 +36,11 @@ h5 {
 .project-img {
     height: 200px;
     width: 200px;
+}
+
+.DiningHallHeader {
+    font-weight: bold;
+    color: white;
+    font-style: italic;
+    background-color: blue;
+}
