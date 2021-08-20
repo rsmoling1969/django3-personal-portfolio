@@ -27,6 +27,7 @@
     <tr>
         <th style="text-align:left">Time</th>
         <th style="text-align:left"><div style="padding-left:75px">Count</div></th>
+        <th style="text-align:left"><div># in last 15</div></th>
         <th style="text-align:left">Running Average</th>
     </tr>
     {% for key, value in shift.counts_and_averages.items %}
@@ -34,6 +35,7 @@
         <td>{{ key }}</td>
         <td><input id="table_{{forloop.counter}}" type="text" value="{{ value.0 }}"></td>
         <td>{{ value.1 }}</td>
+        <td>{{ value.2 }}</td>
     </tr>
     {% endfor %}
 </table>
