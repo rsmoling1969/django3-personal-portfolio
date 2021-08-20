@@ -39,7 +39,7 @@ class CoblentzNumbers(models.Model):
                 print(f"Caused an exception")
                 running_average = last_number / int(count)
                 number_in_last_15 = 0
-            times_and_numbers[myTime.strftime("%H:%M")] = [number, number_in_last_15,   running_average]
+            times_and_numbers[myTime.strftime("%H:%M")] = [number, number_in_last_15, "{:.2f}".format(running_average)]
             print(f"OUR TOTAL ARRAY: {times_and_numbers}")
             myTime += timedelta(minutes=15)
             count += 1
