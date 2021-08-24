@@ -102,7 +102,7 @@ def create_shift(request):
             else:
                 newShift.numbers = " , , , , , , , , , , , "
             newShift.save()
-            return redirect('CoblentzNumbers:all_shifts')
+            return redirect('CoblentzNumbers:shift_detail', newShift.id)
         except ValueError:
             return render(request, 'CoblentzNumbers/create.html', {'form': ShiftForm(), 'error': 'Bad Data, Try Again'})
 
