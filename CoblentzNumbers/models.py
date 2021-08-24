@@ -28,6 +28,12 @@ class CoblentzNumbers(models.Model):
         myTime = datetime(year=2021,month=7,day=1,hour=initial_time, minute=minute_start, second=0)
         count = 1
         last_number = 0
+        last_number_index = -1
+        index = 1
+        for number in self.numbers.split(','):
+            if RepresentsInt(number):
+                last_number_index = index
+            index += 1
         for number in self.numbers.split(','):
             try:
                 print(f"In try, number is {number}, count is {count}")
@@ -39,14 +45,27 @@ class CoblentzNumbers(models.Model):
                 print(f"Caused an exception")
                 running_average = last_number / int(count)
                 number_in_last_15 = 0
-            times_and_numbers[myTime.strftime("%H:%M")] = [number, number_in_last_15, "{:.2f}".format(running_average)]
-            print(f"OUR TOTAL ARRAY: {times_and_numbers}")
+            if count > last_number_index:
+                number_in_last_15 = ''
+                running_average = ''
+            if running_average != '':
+                times_and_numbers[myTime.strftime("%H:%M")] = [number, number_in_last_15, "{:.2f}".format(running_average)]
+            else:
+                times_and_numbers[myTime.strftime("%H:%M")] = [number, number_in_last_15, running_average]
+            #print('OUR COUNT IS: ' + str(count) + ' and LAST_NUMBER_INDEX IS: ' + str(last_number_index))
+
+            #print(f"OUR TOTAL ARRAY: {times_and_numbers}")
             myTime += timedelta(minutes=15)
             count += 1
         print(times_and_numbers)
         return times_and_numbers
 
-
+def RepresentsInt(s):
+    try:
+        int(s)
+        return True
+    except ValueError:
+        return False
 
 
 
