@@ -18,7 +18,7 @@
 
 <ul class="navbar-nav ml-auto  list-group-horizontal">
     {% if user.is_authenticated %}
-    <li class="nav-item">
+    <li class="nav-item navbar-lightblue">
         <a href="#" onclick="$('#signOutBtn').click()" class="nav-link">Logout</a>
         <form style='display: none;' method="POST" action="{% url 'CoblentzNumbers:logoutuser' %}">
             {% csrf_token %}
@@ -26,10 +26,10 @@
         </form>
     </li>
     {% else %}
-    <li class="nav-item navbarmargin">
+    <li class="nav-item navbarmargin navbar-lightblue">
         <a class="nav-link" href="{% url 'CoblentzNumbers:signupuser' %}">Sign Up</a>
     </li>
-    <li class="nav-item navbarmargin">
+    <li class="nav-item navbarmargin navbar-lightblue">
         <a class="nav-link" href="{% url 'CoblentzNumbers:loginuser' %}">Login</a>
     </li>
     {% endif %}
