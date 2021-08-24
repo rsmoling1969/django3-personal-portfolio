@@ -64,7 +64,7 @@
             for (var i = 1; i <= rows.length - 1; i++)
             {
                 var cellValue = document.getElementById("table_"+i).value;
-                myOutput += cellValue;
+                myOutput += cellValue.trim();
                 if (i != rows.length - 1)
                 {
                     myOutput += ",";
