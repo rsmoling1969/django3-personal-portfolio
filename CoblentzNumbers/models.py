@@ -14,6 +14,9 @@ class CoblentzNumbers(models.Model):
     numbers = models.CharField(max_length=200) #For now, sadly, a comma delimited list of shift numbers
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=3)
 
+    class Meta:
+        unique_together = ('date', 'shift',)
+
     def __str__(self):
         return str(self.date) + ' ' + str(self.shift) + ' User: ' + str(self.user)
 

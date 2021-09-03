@@ -103,8 +103,9 @@ def create_shift(request):
                 newShift.numbers = " , , , , , , , , , , , "
             newShift.save()
             return redirect('CoblentzNumbers:shift_detail', newShift.id)
-        except ValueError:
-            return render(request, 'CoblentzNumbers/create.html', {'form': ShiftForm(), 'error': 'Bad Data, Try Again'})
+        except ValueError as error:
+            print(error)
+            return render(request, 'CoblentzNumbers/create.html', {'form': ShiftForm(), 'error': 'This shift already exists'})
 
 def signupuser(request):
     if request.method == "GET":
