@@ -33,7 +33,7 @@
     {% for key, value in shift.counts_and_averages.items %}
     <tr>
         <td>{{ key }}</td>
-        <td><input id="table_{{forloop.counter}}" type="text" value="{{ value.0 }}" onkeydown="DoSomething(this)";"></td>
+        <td><input id="table_{{forloop.counter}}" type="text" value="{{ value.0 }}" onkeydown="textboxFocus(this.id)";"></td>
         <td>{{ value.1 }}</td>
         <td>{{ value.2 }}</td>
     </tr>
@@ -51,8 +51,6 @@
     <button type="submit" class="btn btn-primary">Save</button>
 
 </form>
-<button onclick="DoSomething()">Do Something</button>
-
 
 <script>
    window.onload = function() {
@@ -81,11 +79,9 @@
     alert("The object is!!!");
    }
 
-   function DoSomething(object) {
-    //alert("The Object is " + object);
-    //alert("The color of this object is " + object.style.color);
-    //alert("The Object value is  " + object.value);
-    object.style.color = "0000FF";
+   function textboxFocus(x)
+   {
+       document.getElementById(x).style.color = "#00CC00";
    }
 </script>
 
