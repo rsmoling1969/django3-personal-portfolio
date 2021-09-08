@@ -75,8 +75,8 @@
             numbers.value = myOutput;
             alert("My output is " + myOutput);
             document.getElementById("clienterror").style.display = "block"
-            alert(valid_numbers(myOutput));
-            return false;
+            //alert(valid_numbers(myOutput));
+            return (valid_numbers(myOutput));
         }
    }
 
@@ -100,19 +100,26 @@
         var currentLine = 1;
         var returnValue = 'Good';
         var numberList = numbers.split(",");
-        for (number in numberList)
+        alert("Length of numberList is " + numberList.length);
+        alert("The numberList is " + numberList);
+        alert("numberList[0] is " + numberList[0]);
+        alert("numberList[1] is " + numberList[1]);
+        alert("numberList[2] is " + numberList[2]);
+        alert("numberList[3] is " + numberList[3]);
+        for (var i = 0; i < numberList.length; i++)
         {
-            //alert("number.length is " + number.length);
-            if (isWhitespaceOrEmpty(number) || number.length == 0)
+            var numberToValidate = numberList[i];
+            if (isWhitespaceOrEmpty(numberToValidate) || numberToValidate.length == 0)
             {
                 currentLine += 1;
                 continue;
             }
-            else if (isNumeric(number))
+            else if (isNumeric(numberToValidate))
             {
-                if (parseInt(number) >= highestNumber)
+                //alert("number is ");
+                if (parseInt(numberToValidate) >= highestNumber)
                 {
-                    highestNumber = parseInt(number);
+                    highestNumber = parseInt(numberToValidate);
                 }
                 else
                 {
