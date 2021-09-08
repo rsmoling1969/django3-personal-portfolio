@@ -76,7 +76,15 @@
             alert("My output is " + myOutput);
             document.getElementById("clienterror").style.display = "block"
             //alert(valid_numbers(myOutput));
-            return (valid_numbers(myOutput));
+            result = valid_numbers(myOutput);
+            if (result != "Good")
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
    }
 
@@ -100,12 +108,12 @@
         var currentLine = 1;
         var returnValue = 'Good';
         var numberList = numbers.split(",");
-        alert("Length of numberList is " + numberList.length);
-        alert("The numberList is " + numberList);
-        alert("numberList[0] is " + numberList[0]);
-        alert("numberList[1] is " + numberList[1]);
-        alert("numberList[2] is " + numberList[2]);
-        alert("numberList[3] is " + numberList[3]);
+        //alert("Length of numberList is " + numberList.length);
+        //alert("The numberList is " + numberList);
+        //alert("numberList[0] is " + numberList[0]);
+        //alert("numberList[1] is " + numberList[1]);
+        //alert("numberList[2] is " + numberList[2]);
+        //alert("numberList[3] is " + numberList[3]);
         for (var i = 0; i < numberList.length; i++)
         {
             var numberToValidate = numberList[i];
@@ -125,12 +133,14 @@
                 {
                     //print(f"***highest number is {highestNumber}, current number is {number}, current line is {currentLine}");
                     returnValue = 'Numbers must never be descending! Check line ' + String(currentLine);
+                    document.getElementById("table_" + String(currentLine)).style.color = "#FF0000";
                     break;
                 }
             }
             else
             {
                 returnValue = 'No non-numeric values allowed! Check line ' + String(currentLine);
+                document.getElementById("table_" + String(currentLine)).style.color = "#FF0000";
             }
             currentLine += 1;
         }
