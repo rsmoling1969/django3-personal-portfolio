@@ -18,6 +18,9 @@
     {{ success }}
 </div>
 {% endif %}
+<div class="alert alert-danger" role="alert" id="clienterror" style="display: none">
+    Client side error
+</div>
 <table id="myTable" class="table">
     <colgroup>
         <col span="1" style="width: 33%;">
@@ -39,7 +42,7 @@
     </tr>
     {% endfor %}
 </table>
-<form id="theForm" method="POST">
+<form id="theForm" method="POST" onsubmit="return submitFunction()">
     {% csrf_token %}
     <div class="form-group">
         <label for="memo"></label>
@@ -70,7 +73,10 @@
                 }
             }
             numbers.value = myOutput;
-            //alert("My output is " + myOutput);
+            alert("My output is " + myOutput);
+            document.getElementById("clienterror").style.display = "block"
+            alert(valid_numbers(myOutput));
+            return false;
         }
    }
 
@@ -83,6 +89,56 @@
    {
        document.getElementById(x).style.color = "#00CC00";
    }
+
+   function valid_numbers(numbers)
+   {
+        //alert("validating numbers!");
+        // ensure that:
+        // 1. every value is a number and/or whitespace, and not counted in the next thing
+        // 2. all the *numbers* are strictly ascending (more important that the first point)
+        var highestNumber = 0;
+        var currentLine = 1;
+        var returnValue = 'Good';
+        var numberList = numbers.split(",");
+        for (number in numberList)
+        {
+            //alert("number.length is " + number.length);
+            if (isWhitespaceOrEmpty(number) || number.length == 0)
+            {
+                currentLine += 1;
+                continue;
+            }
+            else if (isNumeric(number))
+            {
+                if (parseInt(number) >= highestNumber)
+                {
+                    highestNumber = parseInt(number);
+                }
+                else
+                {
+                    //print(f"***highest number is {highestNumber}, current number is {number}, current line is {currentLine}");
+                    returnValue = 'Numbers must never be descending! Check line ' + String(currentLine);
+                    break;
+                }
+            }
+            else
+            {
+                returnValue = 'No non-numeric values allowed! Check line ' + String(currentLine);
+            }
+            currentLine += 1;
+        }
+        return returnValue;
+    }
+
+    function isNumeric(str) {
+        if (typeof str != "string") return false // we only process strings!
+        return !isNaN(str) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
+             !isNaN(parseFloat(str)) // ...and ensure strings of whitespace fail
+    }
+
+    function isWhitespaceOrEmpty(text) {
+        return !/[^\s]/.test(text);
+    }
 </script>
 
 {% endblock %}
