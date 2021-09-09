@@ -37,14 +37,8 @@ def shift_detail(request, shift_id):
             if form.is_valid():
                 form_numbers = request.POST.get('numbers')
                 print(f"The form numbers are: {form_numbers}")
-                valid = valid_numbers(form_numbers)
-                if valid == 'Good':
-                    form.save()
-                    #return redirect('CoblentzNumbers:all_shifts')
-                    return render(request,  'CoblentzNumbers/detail.html', {'shift': shift, 'form': form, 'success': 'Saved'})
-                else:
-                    form = ShiftForm(instance=shift)
-                    return render(request,  'CoblentzNumbers/detail.html', {'shift': shift, 'form': form, 'error': valid})
+                form.save()
+                return render(request,  'CoblentzNumbers/detail.html', {'shift': shift, 'form': form, 'success': 'Saved'})
             else:
                 print('form error is: ' + str(form.errors))
                 return render(request, 'CoblentzNumbers/detail.html', {'form': form})
