@@ -13,7 +13,7 @@ def all_shifts(request):
     #shift_count = CoblentzNumbers.objects.count()
     #rint(str(shift_count) + " is the number of shift objects")
     #shifts = CoblentzNumbers.objects.order_by('-date')[:10]
-    shifts = CoblentzNumbers.objects.filter(user=request.user).order_by('-date')[:10]
+    shifts = CoblentzNumbers.objects.filter(user=request.user).order_by('-date')
     #print(str(shifts))
     #first_date = shifts[0].date
     #print(first_date)
