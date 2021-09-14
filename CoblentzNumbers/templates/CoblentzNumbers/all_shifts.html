@@ -13,7 +13,7 @@
 {% for shift in shifts %}
     <li>
         <a href="{% url 'CoblentzNumbers:shift_detail' shift.id %}">
-            <h2>{{ shift.date }} {{ shift.shift }}</h2>
+            <h2>{{ shift.DayOfWeek }}, {{ shift.date }} {{ shift.shift }}</h2>
         </a>
     </li>
 

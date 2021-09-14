@@ -63,6 +63,10 @@ class CoblentzNumbers(models.Model):
         print(times_and_numbers)
         return times_and_numbers
 
+    def DayOfWeek(self):
+        print("The DATE is: " + str(self.date))
+        return self.date.strftime("%A")
+
 def RepresentsInt(s):
     try:
         int(s)

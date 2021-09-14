@@ -33,14 +33,14 @@ def shift_detail(request, shift_id):
             form = ShiftDetailForm(request.POST, instance=shift)
             #print(f"The form itself: {str(form.shift)}")
             form_date = request.POST.get('date')
-            print(f"The date retrieved from the form is {form_date}")
+            #print(f"The date retrieved from the form is {form_date}")
             if form.is_valid():
                 form_numbers = request.POST.get('numbers')
-                print(f"The form numbers are: {form_numbers}")
+                #print(f"The form numbers are: {form_numbers}")
                 form.save()
                 return render(request,  'CoblentzNumbers/detail.html', {'shift': shift, 'form': form, 'success': 'Saved'})
             else:
-                print('form error is: ' + str(form.errors))
+                #print('form error is: ' + str(form.errors))
                 return render(request, 'CoblentzNumbers/detail.html', {'form': form})
         except ValueError as e:
             return render(request, 'CoblentzNumbers/detail.html', {'form': ShiftDetailForm(), 'error': f'Bad Data - {e}',})
@@ -61,7 +61,7 @@ def valid_numbers(numbers):
             if int(number) >= highestNumber:
                 highestNumber = int(number)
             else:
-                print(f"***highest number is {highestNumber}, current number is {number}, current line is {currentLine}")
+                #print(f"***highest number is {highestNumber}, current number is {number}, current line is {currentLine}")
                 returnValue = 'Numbers must never be descending! Check line ' + str(currentLine)
                 break
         else:
@@ -79,18 +79,18 @@ def create_shift(request):
         return render(request, 'CoblentzNumbers/create.html', {'form': ShiftForm()})
     else:
         try:
-            print('CREATING NEW SHIFT')
+            #print('CREATING NEW SHIFT')
             form = ShiftForm(request.POST)
-            print('WE HAVE THE FORM')
+            #print('WE HAVE THE FORM')
             newShift = form.save(commit=False)
-            print('WE HAVE THE NEW SHIFT')
-            print(str(newShift))
-            print(request.user)
+            #print('WE HAVE THE NEW SHIFT')
+            #print(str(newShift))
+            #print(request.user)
             newShift.user = request.user
-            print('request.user = ' + str(newShift.user))
-            print(f"Day of week: {newShift.date.weekday()}")
-            print(f"newShift.date is {newShift.date.weekday()}")
-            print(f"Shift is {newShift.shift}")
+            #print('request.user = ' + str(newShift.user))
+            #print(f"Day of week: {newShift.date.weekday()}")
+            #print(f"newShift.date is {newShift.date.weekday()}")
+            #print(f"Shift is {newShift.shift}")
             if newShift.date.weekday() < 4 or newShift.shift == 'AM':
                 newShift.numbers = " , , , , , , , , , , , , , "
             else:
@@ -98,7 +98,7 @@ def create_shift(request):
             newShift.save()
             return redirect('CoblentzNumbers:shift_detail', newShift.id)
         except ValueError as error:
-            print(error)
+            #print(error)
             return render(request, 'CoblentzNumbers/create.html', {'form': ShiftForm(), 'error': 'This shift already exists'})
 
 def signupuser(request):
@@ -114,7 +114,7 @@ def signupuser(request):
             except:
                 return render(request, 'CoblentzNumbers/signupuser.html', {'form': UserCreationForm(), 'error': 'Username already in use - choose another'})
         else:
-            print("The passwords don't match")
+            #print("The passwords don't match")
             return render(request, 'CoblentzNumbers/signupuser.html', {'form': UserCreationForm(), 'error': 'Passwords do not match'})
 
 def logoutuser(request):
@@ -134,11 +134,11 @@ def loginuser(request):
     else:
         user = authenticate(username=request.POST['username'], password=request.POST['password'])
         if user is None:
-            print('user is none')
+            #print('user is none')
             return render(request, 'CoblentzNumbers/loginuser.html', {'form': AuthenticationForm(), 'error': 'Username and password did not match'})
         else:
-            print('user is someone')
+            #print('user is someone')
             login(request, user)
-            print('login was successful?')
+            #print('login was successful?')
             return redirect('CoblentzNumbers:all_shifts')
 

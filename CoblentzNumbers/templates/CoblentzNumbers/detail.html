@@ -4,7 +4,7 @@
 
 {% block content %}
 <a class="btn btn-primary" href="{% url 'CoblentzNumbers:all_shifts' %}">Return to Shifts</a>
-<h1 class="text-center mt-5" id="shiftdetaildate">{{ shift.date }} {{ shift.shift }}</h1>
+<h1 class="text-center mt-5" id="shiftdetaildate">{{ shift.DayOfWeek }}, {{ shift.date }} {{ shift.shift }}</h1>
 
 <!--<h5 class="text-center text-muted mb-5">{{ shift.date|date:'F jS Y' }}</h5>-->
 <br>
