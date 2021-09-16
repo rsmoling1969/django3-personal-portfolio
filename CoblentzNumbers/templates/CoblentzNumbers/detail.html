@@ -37,8 +37,8 @@
     <tr>
         <td>{{ key }}</td>
         <td><input id="table_{{forloop.counter}}" type="text" value="{{ value.0 }}" onkeydown="textboxFocus(this.id)";"></td>
-        <td>{{ value.1 }}</td>
-        <td>{{ value.2 }}</td>
+        <td class="calculated">{{ value.1 }}</td>
+        <td class="calculated">{{ value.2 }}</td>
     </tr>
     {% endfor %}
 </table>
@@ -135,6 +135,7 @@
                     //print(f"***highest number is {highestNumber}, current number is {number}, current line is {currentLine}");
                     returnValue = 'Numbers must never be descending! Check line ' + String(currentLine);
                     document.getElementById("clienterror").innerHTML = 'Numbers must never be descending! Check line ' + String(currentLine);
+                    EmptyNumbersAndAverages(currentLine, numberList.length);
                     try
                     {
                         document.getElementById("clientsuccess").style.display = "none";
@@ -151,6 +152,7 @@
             {
                 returnValue = 'No non-numeric values allowed! Check line ' + String(currentLine);
                 document.getElementById("clienterror").innerHTML = 'No non-numeric values allowed! Check line ' + String(currentLine);
+                EmptyNumbersAndAverages(currentLine, numberList.length);
                 try
                 {
                     document.getElementById("clientsuccess").style.display = "none";
@@ -167,14 +169,29 @@
         return returnValue;
     }
 
-    function isNumeric(str) {
+    function isNumeric(str)
+    {
         if (typeof str != "string") return false // we only process strings!
         return !isNaN(str) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
              !isNaN(parseFloat(str)) // ...and ensure strings of whitespace fail
     }
 
-    function isWhitespaceOrEmpty(text) {
+    function isWhitespaceOrEmpty(text)
+    {
         return !/[^\s]/.test(text);
+    }
+
+    function EmptyNumbersAndAverages(line, length)
+    {
+        var tableRows = document.getElementsByTagName("tr");
+        for (var i = line; i < tableRows.length; i++)
+        {
+            let children = tableRows[i].children;
+            for (var j = 2; j < children.length; j++)
+            {
+                children[j].innerHTML = "";
+            }
+        }
     }
 </script>
 
