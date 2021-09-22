@@ -21,6 +21,8 @@
 <div class="alert alert-danger" role="alert" id="clienterror" style="display: none">
 
 </div>
+{% if shift.shift == "PM" %}
+Dinner
 <table id="myTable" class="table">
     <colgroup>
         <col span="1" style="width: 33%;">
@@ -42,6 +44,52 @@
     </tr>
     {% endfor %}
 </table>
+{% else %}
+Continental
+<table id="myTableFirst" class="table">
+    <colgroup>
+        <col span="1" style="width: 33%;">
+        <col span="1" style="width: 45%;">
+        <col span="1" style="width: 22%;">
+    </colgroup>
+    <tr>
+        <th style="text-align:left">Time</th>
+        <th style="text-align:left"><div style="padding-left:75px">Count</div></th>
+        <th style="text-align:left"><div># in last 15</div></th>
+        <th style="text-align:left">Running Average</th>
+    </tr>
+    {% for key, value in shift.counts_and_averages_First.items %}
+    <tr>
+        <td>{{ key }}</td>
+        <td><input id="table_{{forloop.counter}}" type="text" value="{{ value.0 }}" onkeydown="textboxFocus(this.id)";"></td>
+        <td class="calculated">{{ value.1 }}</td>
+        <td class="calculated">{{ value.2 }}</td>
+    </tr>
+    {% endfor %}
+</table>
+Brunch
+<table id="myTableSecond" class="table">
+    <colgroup>
+        <col span="1" style="width: 33%;">
+        <col span="1" style="width: 45%;">
+        <col span="1" style="width: 22%;">
+    </colgroup>
+    <tr>
+        <th style="text-align:left">Time</th>
+        <th style="text-align:left"><div style="padding-left:75px">Count</div></th>
+        <th style="text-align:left"><div># in last 15</div></th>
+        <th style="text-align:left">Running Average</th>
+    </tr>
+    {% for key, value in shift.counts_and_averages_Second.items %}
+    <tr>
+        <td>{{ key }}</td>
+        <td><input id="table_{{forloop.counter}}" type="text" value="{{ value.0 }}" onkeydown="textboxFocus(this.id)";"></td>
+        <td class="calculated">{{ value.1 }}</td>
+        <td class="calculated">{{ value.2 }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
 <form id="theForm" method="POST" onsubmit="return submitFunction()">
     {% csrf_token %}
     <div class="form-group">

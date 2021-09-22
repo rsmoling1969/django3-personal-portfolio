@@ -63,6 +63,102 @@ class CoblentzNumbers(models.Model):
         print(times_and_numbers)
         return times_and_numbers
 
+    def counts_and_averages_First(self):
+        times_and_numbers = {}
+        initial_time = 10 if self.shift == self.AMorPM.AM else 16
+        minute_start = 0
+        if initial_time == 10:
+            minute_start = 15
+        else:
+            minute_start = 45
+        myTime = datetime(year=2021,month=7,day=1,hour=initial_time, minute=minute_start, second=0)
+        count = 1
+        last_number = 0
+        last_number_index = -1
+        index = 1
+        limiting_index = 0
+        for number in self.numbers.split(','):
+            if RepresentsInt(number):
+                last_number_index = index
+            index += 1
+        for number in self.numbers.split(','):
+            try:
+                print(f"In try, number is {number}, count is {count}")
+                running_average = int(number) / int(count)
+                number_in_last_15 = int(number) - last_number
+                last_number = int(number)
+                print(f"running_average is {running_average}")
+            except:
+                print(f"Caused an exception")
+                running_average = last_number / int(count)
+                number_in_last_15 = 0
+            if count > last_number_index:
+                number_in_last_15 = ''
+                running_average = ''
+            if running_average != '':
+                times_and_numbers[myTime.strftime("%H:%M")] = [number, number_in_last_15, "{:.2f}".format(running_average)]
+            else:
+                times_and_numbers[myTime.strftime("%H:%M")] = [number, number_in_last_15, running_average]
+            #print('OUR COUNT IS: ' + str(count) + ' and LAST_NUMBER_INDEX IS: ' + str(last_number_index))
+
+            #print(f"OUR TOTAL ARRAY: {times_and_numbers}")
+            myTime += timedelta(minutes=15)
+            count += 1
+            limiting_index += 1
+            if limiting_index == 4:
+                break
+        print(times_and_numbers)
+        return times_and_numbers
+
+    def counts_and_averages_Second(self):
+        times_and_numbers = {}
+        initial_time = 10 if self.shift == self.AMorPM.AM else 16
+        minute_start = 0
+        if initial_time == 10:
+            initial_time = 11
+            minute_start = 15
+        else:
+            minute_start = 45
+        myTime = datetime(year=2021,month=7,day=1,hour=initial_time, minute=minute_start, second=0)
+        count = 1
+        last_number = 0
+        last_number_index = -1
+        index = 1
+        limiting_index = 0
+        for number in self.numbers.split(','):
+            if RepresentsInt(number):
+                last_number_index = index
+            index += 1
+        for number in self.numbers.split(','):
+            limiting_index += 1
+            if limiting_index < 5:
+                continue
+            try:
+                print(f"In try, number is {number}, count is {count}")
+                running_average = int(number) / int(count)
+                number_in_last_15 = int(number) - last_number
+                last_number = int(number)
+                print(f"running_average is {running_average}")
+            except:
+                print(f"Caused an exception")
+                running_average = last_number / int(count)
+                number_in_last_15 = 0
+            if count > last_number_index:
+                number_in_last_15 = ''
+                running_average = ''
+            if running_average != '':
+                times_and_numbers[myTime.strftime("%H:%M")] = [number, number_in_last_15, "{:.2f}".format(running_average)]
+            else:
+                times_and_numbers[myTime.strftime("%H:%M")] = [number, number_in_last_15, running_average]
+            #print('OUR COUNT IS: ' + str(count) + ' and LAST_NUMBER_INDEX IS: ' + str(last_number_index))
+
+            #print(f"OUR TOTAL ARRAY: {times_and_numbers}")
+            myTime += timedelta(minutes=15)
+            count += 1
+
+        print(times_and_numbers)
+        return times_and_numbers
+
     def DayOfWeek(self):
         print("The DATE is: " + str(self.date))
         return self.date.strftime("%A")
