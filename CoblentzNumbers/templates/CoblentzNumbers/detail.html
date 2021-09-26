@@ -83,7 +83,7 @@ Brunch
     {% for key, value in shift.counts_and_averages_Second.items %}
     <tr>
         <td>{{ key }}</td>
-        <td><input id="table_{{forloop.counter}}" type="text" value="{{ value.0 }}" onkeydown="textboxFocus(this.id)";"></td>
+        <td><input id="{{ value.3  }}" type="text" value="{{ value.0 }}" onkeydown="textboxFocus(this.id)";"></td>
         <td class="calculated">{{ value.1 }}</td>
         <td class="calculated">{{ value.2 }}</td>
     </tr>
@@ -94,7 +94,7 @@ Brunch
     {% csrf_token %}
     <div class="form-group">
         <label for="memo"></label>
-        <input type="hidden" name="shift" value = "{{ shift.shift }}" class="form-control" id="shift">
+        <input id="AMorPM" type="hidden" name="shift" value = "{{ shift.shift }}" class="form-control" id="shift">
         <input type="hidden" name="date" value = "{{ shift.date|date:"Y-m-d" }}" class="form-control" id="date">
         <input type="hidden" name="numbers" value = "2,4,6,8" }}" class="form-control" id="numbers">
     </div>
@@ -109,31 +109,68 @@ Brunch
             var numbers = document.getElementById('numbers');
             numbers.value = "1,1,2,3,5";
             var myOutput = "";
-            var table = document.getElementById("myTable");
-            var rows = table.getElementsByTagName("tr");
-            for (var i = 1; i <= rows.length - 1; i++)
+            var table;
+            if (document.getElementById("AMorPM").value == "PM")
             {
-                var cellValue = document.getElementById("table_"+i).value;
-                myOutput += cellValue.trim();
-                if (i != rows.length - 1)
+                table = document.getElementById("myTable");
+                var rows = table.getElementsByTagName("tr");
+                for (var i = 1; i <= rows.length - 1; i++)
                 {
-                    myOutput += ",";
+                    var cellValue = document.getElementById("table_"+i).value;
+                    myOutput += cellValue.trim();
+                    if (i != rows.length - 1)
+                    {
+                        myOutput += ",";
+                    }
                 }
-            }
-            numbers.value = myOutput;
-            //alert("My output is " + myOutput);
-            document.getElementById("clienterror").style.display = "block"
-            //alert(valid_numbers(myOutput));
-            result = valid_numbers(myOutput);
-            if (result != "Good")
-            {
-                document.body.scrollTop = document.documentElement.scrollTop = 0;
-                return false;
+                numbers.value = myOutput;
+                document.getElementById("clienterror").style.display = "block"
+                result = valid_numbers(myOutput);
+                if (result != "Good")
+                {
+                    document.body.scrollTop = document.documentElement.scrollTop = 0;
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
             }
             else
             {
-                return true;
+                table = document.getElementById("myTable1");
+                var rows = table.getElementsByTagName("tr");
+                for (var i = 1; i <= rows.length - 1; i++)
+                {
+                    var cellValue = document.getElementById("table_"+i).value;
+                    myOutput += cellValue.trim();
+                    myOutput += ",";
+                }
+                table = document.getElementById("myTable2");
+                var rows = table.getElementsByTagName("tr");
+                for (var i = 1; i <= rows.length - 1; i++)
+                {
+                    var cellValue = document.getElementById("table_"+i).value;
+                    myOutput += cellValue.trim();
+                    if (i != rows.length - 1)
+                    {
+                        myOutput += ",";
+                    }
+                }
+                numbers.value = myOutput;
+                document.getElementById("clienterror").style.display = "block"
+                result = valid_numbers(myOutput);
+                if (result != "Good")
+                {
+                    document.body.scrollTop = document.documentElement.scrollTop = 0;
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
             }
+
         }
    }
 

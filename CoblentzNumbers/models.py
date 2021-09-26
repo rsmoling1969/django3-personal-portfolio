@@ -125,6 +125,7 @@ class CoblentzNumbers(models.Model):
         last_number_index = -1
         index = 1
         limiting_index = 0
+        row = 5
         for number in self.numbers.split(','):
             if RepresentsInt(number):
                 last_number_index = index
@@ -147,15 +148,15 @@ class CoblentzNumbers(models.Model):
                 number_in_last_15 = ''
                 running_average = ''
             if running_average != '':
-                times_and_numbers[myTime.strftime("%H:%M")] = [number, number_in_last_15, "{:.2f}".format(running_average)]
+                times_and_numbers[myTime.strftime("%H:%M")] = [number, number_in_last_15, "{:.2f}".format(running_average), f"table_{row}"]
             else:
-                times_and_numbers[myTime.strftime("%H:%M")] = [number, number_in_last_15, running_average]
+                times_and_numbers[myTime.strftime("%H:%M")] = [number, number_in_last_15, running_average, f"table_{row}"]
             #print('OUR COUNT IS: ' + str(count) + ' and LAST_NUMBER_INDEX IS: ' + str(last_number_index))
 
             #print(f"OUR TOTAL ARRAY: {times_and_numbers}")
             myTime += timedelta(minutes=15)
             count += 1
-
+            row += 1
         print(times_and_numbers)
         return times_and_numbers
 
