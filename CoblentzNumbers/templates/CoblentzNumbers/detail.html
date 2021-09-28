@@ -150,7 +150,7 @@ Brunch
                 var rows = table.getElementsByTagName("tr");
                 for (var i = 1; i <= rows.length - 1; i++)
                 {
-                    var cellValue = document.getElementById("table_"+i).value;
+                    var cellValue = document.getElementById("table_"+ (i + 4)).value;
                     myOutput += cellValue.trim();
                     if (i != rows.length - 1)
                     {
@@ -218,20 +218,28 @@ Brunch
                 }
                 else
                 {
-                    //print(f"***highest number is {highestNumber}, current number is {number}, current line is {currentLine}");
-                    returnValue = 'Numbers must never be descending! Check line ' + String(currentLine);
-                    document.getElementById("clienterror").innerHTML = 'Numbers must never be descending! Check line ' + String(currentLine);
-                    EmptyNumbersAndAverages(currentLine, numberList.length);
-                    try
+                    // Numbers always ascending, except if this is the fifth element of an AM shift
+                    if (!(document.getElementById("AMorPM").value == "AM" && i == 4))
                     {
-                        document.getElementById("clientsuccess").style.display = "none";
+                        //print(f"***highest number is {highestNumber}, current number is {number}, current line is {currentLine}");
+                        returnValue = 'Numbers must never be descending! Check line ' + String(currentLine);
+                        document.getElementById("clienterror").innerHTML = 'Numbers must never be descending! Check line ' + String(currentLine);
+                        EmptyNumbersAndAverages(currentLine, numberList.length);
+                        try
+                        {
+                            document.getElementById("clientsuccess").style.display = "none";
+                        }
+                        catch (error)
+                        {
+                            console.log(error);
+                        }
+                        document.getElementById("table_" + String(currentLine)).style.color = "#FF0000";
+                        break;
                     }
-                    catch (error)
+                    else
                     {
-                        console.log(error);
+                        highestNumber = parseInt(numberToValidate);
                     }
-                    document.getElementById("table_" + String(currentLine)).style.color = "#FF0000";
-                    break;
                 }
             }
             else
