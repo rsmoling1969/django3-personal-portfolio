@@ -158,7 +158,7 @@ Brunch
                     }
                 }
                 numbers.value = myOutput;
-                alert(myOutput);
+                //alert(myOutput);
                 document.getElementById("clienterror").style.display = "block"
                 result = valid_numbers(myOutput);
                 if (result != "Good")
@@ -277,7 +277,13 @@ Brunch
 
     function EmptyNumbersAndAverages(line, length)
     {
+        // kludgey, but, whatever, this is ver 1.0
+        if (document.getElementById("AMorPM").value == "AM" && line >= 5)
+        {
+            line++;
+        }
         var tableRows = document.getElementsByTagName("tr");
+
         for (var i = line; i < tableRows.length; i++)
         {
             let children = tableRows[i].children;
