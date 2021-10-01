@@ -286,6 +286,10 @@ Brunch
 
         for (var i = line; i < tableRows.length; i++)
         {
+            if (document.getElementById("AMorPM").value == "AM" && i == 5)
+            {
+                continue;
+            }
             let children = tableRows[i].children;
             for (var j = 2; j < children.length; j++)
             {
