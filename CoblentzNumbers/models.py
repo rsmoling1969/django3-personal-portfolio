@@ -130,6 +130,13 @@ class CoblentzNumbers(models.Model):
             if RepresentsInt(number):
                 last_number_index = index
             index += 1
+        if last_number_index < 5:
+            last_number_index = -1
+        else:
+            last_number_index -= 4
+        print(f"Last number index is {last_number_index}")
+        print(f"The number list is {self.numbers.split(',')}")
+        print(f"Times and numbers: {times_and_numbers}")
         for number in self.numbers.split(','):
             limiting_index += 1
             if limiting_index < 5:
@@ -157,7 +164,7 @@ class CoblentzNumbers(models.Model):
             myTime += timedelta(minutes=15)
             count += 1
             row += 1
-        print(times_and_numbers)
+        print(f"Times and numbers before return: {times_and_numbers}")
         return times_and_numbers
 
     def DayOfWeek(self):
