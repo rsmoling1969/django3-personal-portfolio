@@ -43,6 +43,14 @@ th {
 }
 
 .CoblentzHeader {
+    font-size: 80px;
+}
+
+.center{
+    height: 7vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-size: 40px;
 }
 
