@@ -8,7 +8,9 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 from django.db import IntegrityError
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def all_shifts(request):
     #shift_count = CoblentzNumbers.objects.count()
     #rint(str(shift_count) + " is the number of shift objects")
@@ -23,6 +25,7 @@ def all_shifts(request):
     return render(request, 'CoblentzNumbers/all_shifts.html',
                   {'shifts': shifts})
 
+@login_required
 def shift_detail(request, shift_id):
     shift = get_object_or_404(CoblentzNumbers, pk=shift_id)
     if request.method == 'GET':
@@ -74,6 +77,7 @@ def valid_numbers(numbers):
 #    print(today)
 #    return render(request, 'CoblentzNumbers/create.html', {'myToday': today})
 
+@login_required
 def create_shift(request):
     if request.method == "GET":
         return render(request, 'CoblentzNumbers/create.html', {'form': ShiftForm()})
@@ -117,6 +121,7 @@ def signupuser(request):
             #print("The passwords don't match")
             return render(request, 'CoblentzNumbers/signupuser.html', {'form': UserCreationForm(), 'error': 'Passwords do not match'})
 
+@login_required
 def logoutuser(request):
     if request.method == "POST":
         logout(request)
